@@ -63,6 +63,7 @@ namespace API.Validations
             }
             else
             {
+                // Only storing failed validations for Linked
                 _context.Validations.Add(new Validation { Tfn = tfn, ValidationResult = ValidationResponse.Invalid, CreatedOn = DateTime.Now });
                 _context.SaveChanges();
 
@@ -74,14 +75,21 @@ namespace API.Validations
         }
         public bool IsLinked(string tfnA)
         {
-            string tfnB = "123459876";
-            string tfnC = "443459871";
+            var previousResults = _context
+                .Validations
+                .Where(p => p.CreatedOn >= DateTime.Now.AddMinutes(-30))
+                .OrderByDescending(p => p.CreatedOn).Take(2);
 
-            if (LongestCommonSubstring.Get(tfnA, tfnB).Length >= 4 && LongestCommonSubstring.Get(tfnB, tfnC).Length >= 4)
-                return true;
+            if (previousResults != null && previousResults.Count() == 2)
+            {
+                string tfnB = previousResults.ToList()[0].Tfn;
+                string tfnC = previousResults.ToList()[1].Tfn;
+
+                if (LongestCommonSubstring.Get(tfnA, tfnB).Length >= 4 && LongestCommonSubstring.Get(tfnB, tfnC).Length >= 4)
+                    return true;
+            }
 
             return false;
-
         }
     }
 }
