@@ -19,6 +19,9 @@ namespace API.Controllers
         [HttpGet("{tfn}")]
         public ActionResult Get(string tfn)
         {
+            if (string.IsNullOrEmpty(tfn))
+                return Ok(Enum.GetName(ValidationResponse.Invalid));
+
             return Ok(Enum.GetName(_validator.Validate(tfn)));
         }
     }
