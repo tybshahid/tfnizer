@@ -63,7 +63,7 @@ namespace API.Validations
             }
             else
             {
-                // Only storing failed validations for Linked
+                // Only storing failed validations for Linked Detection
                 _context.Validations.Add(new Validation { Tfn = tfn, ValidationResult = ValidationResponse.Invalid, CreatedOn = DateTime.Now });
                 _context.SaveChanges();
 
@@ -77,13 +77,13 @@ namespace API.Validations
         {
             var previousResults = _context
                 .Validations
-                .Where(p => p.CreatedOn >= DateTime.Now.AddMinutes(-30))
-                .OrderByDescending(p => p.CreatedOn).Take(2);
+                .Where(p => p.CreatedOn >= DateTime.Now.AddSeconds(-30))
+                .OrderByDescending(p => p.CreatedOn).Take(3).ToList();
 
-            if (previousResults != null && previousResults.Count() == 2)
+            if (previousResults != null && previousResults.Count() == 3)
             {
-                string tfnB = previousResults.ToList()[0].Tfn;
-                string tfnC = previousResults.ToList()[1].Tfn;
+                string tfnB = previousResults[1].Tfn;
+                string tfnC = previousResults[2].Tfn;
 
                 if (LongestCommonSubstring.Get(tfnA, tfnB).Length >= 4 && LongestCommonSubstring.Get(tfnB, tfnC).Length >= 4)
                     return true;
