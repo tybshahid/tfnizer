@@ -6,4 +6,10 @@ namespace API.Enumerations
         Invalid,
         Linked,
     }
+     public enum ValidationType
+    {
+        Default,
+        MockPass,
+        MockFail,
+    }
 }

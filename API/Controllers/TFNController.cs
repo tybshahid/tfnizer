@@ -13,9 +13,9 @@ namespace API.Controllers
     {
         private readonly IValidatorService _validator;
 
-        public TFNController(IValidatorService validator)
+        public TFNController(IEnumerable<IValidatorService> validator)
         {
-            _validator = validator;
+            _validator = validator.SingleOrDefault(p => p.Name == ValidationType.Default);
         }
 
         [HttpGet("{tfn}")]

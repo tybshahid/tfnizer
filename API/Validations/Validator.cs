@@ -9,6 +9,11 @@ namespace API.Validations
 {
     public class Validator : IValidatorService
     {
+        public ValidationType Name { get; }
+        public Validator()
+        {
+            this.Name = ValidationType.Default;
+        }
         public ValidationResponse Validate(string tfn)
         {
             tfn = string.Concat(tfn.Where(c => !char.IsWhiteSpace(c)));

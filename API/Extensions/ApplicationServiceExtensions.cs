@@ -24,6 +24,8 @@ namespace API.Extensions
             });
 
             services.AddScoped<IValidatorService, Validator>();
+            services.AddScoped<IValidatorService, MockValidatorPass>();
+            services.AddScoped<IValidatorService, MockValidatorFail>();
 
             return services;
         }
