@@ -6,5 +6,6 @@ namespace API.Services
     {
         ValidationType Name { get; }
         ValidationResponse Validate(string tfn);
+        bool IsLinked(string tfn);
     }
 }

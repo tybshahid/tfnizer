@@ -14,5 +14,10 @@ namespace API.Validations
         {
             return ValidationResponse.Valid;
         }
+
+        public bool IsLinked(string tfn)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

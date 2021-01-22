@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using API.Enumerations;
 using API.Services;
+using API.Helpers;
 
 namespace API.Validations
 {
@@ -54,7 +53,23 @@ namespace API.Validations
             if (sum % 11 == 0)
                 return ValidationResponse.Valid;
             else
+            {
+                if (IsLinked(tfn))
+                    return ValidationResponse.Linked;
+
                 return ValidationResponse.Invalid;
+            }
+        }
+        public bool IsLinked(string tfnA)
+        {
+            string tfnB = "123459876";
+            string tfnC = "443459871";
+
+            if (LongestCommonSubstring.Get(tfnA, tfnB).Length >= 4 && LongestCommonSubstring.Get(tfnB, tfnC).Length >= 4)
+                return true;
+
+            return false;
+
         }
     }
 }
