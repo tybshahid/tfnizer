@@ -3,11 +3,18 @@ using System.Linq;
 using API.Enumerations;
 using API.Services;
 using API.Helpers;
+using API.Data;
+using API.Models;
 
 namespace API.Validations
 {
     public class Validator : IValidatorService
     {
+        private readonly DataContext _context;
+        public Validator(DataContext context)
+        {
+            _context = context;
+        }
         public ValidationType Name { get; }
         public Validator()
         {
@@ -51,9 +58,14 @@ namespace API.Validations
             }
 
             if (sum % 11 == 0)
+            {
                 return ValidationResponse.Valid;
+            }
             else
             {
+                _context.Validations.Add(new Validation { Tfn = tfn, ValidationResult = ValidationResponse.Invalid, CreatedOn = DateTime.Now });
+                _context.SaveChanges();
+
                 if (IsLinked(tfn))
                     return ValidationResponse.Linked;
 
