@@ -17,7 +17,7 @@ namespace API.Validations
 
         public bool IsLinked(string tfn)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }
