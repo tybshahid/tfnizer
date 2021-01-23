@@ -18,7 +18,7 @@ namespace API.Validations
         public ValidationType Name { get; }
         public Validator()
         {
-            this.Name = ValidationType.Default;
+            Name = ValidationType.Default;
         }
         public ValidationResponse Validate(string tfn)
         {
@@ -63,12 +63,15 @@ namespace API.Validations
             }
             else
             {
-                // Only storing failed validations for Linked Detection
-                _context.Validations.Add(new Validation { Tfn = tfn, ValidationResult = ValidationResponse.Invalid, CreatedOn = DateTime.Now });
-                _context.SaveChanges();
+                if (_context != null)
+                {
+                    // Only storing failed validations for Linked Detection
+                    _context.Validations.Add(new Validation { Tfn = tfn, ValidationResult = ValidationResponse.Invalid, CreatedOn = DateTime.Now });
+                    _context.SaveChanges();
 
-                if (IsLinked(tfn))
-                    return ValidationResponse.Linked;
+                    if (IsLinked(tfn))
+                        return ValidationResponse.Linked;
+                }
 
                 return ValidationResponse.Invalid;
             }
