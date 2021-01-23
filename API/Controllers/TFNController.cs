@@ -16,8 +16,8 @@ namespace API.Controllers
             _validator = validator.SingleOrDefault(p => p.Name == ValidationType.Default);
         }
 
-        [HttpGet("{tfn}")]
-        public ActionResult Get(string tfn)
+        [HttpPost("{tfn}")]
+        public ActionResult Post(string tfn)
         {
             if (string.IsNullOrEmpty(tfn))
                 return Ok(Enum.GetName(ValidationResponse.Invalid));
