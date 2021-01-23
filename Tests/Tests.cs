@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Tests
 {
-    public class TfnizerTests
+    public class Tests
     {
         [Fact]
         public void TestValidTfnsUsingDefaultAlgorithm()
