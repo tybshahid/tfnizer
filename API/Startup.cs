@@ -34,6 +34,9 @@ namespace API
 
             app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
@@ -41,9 +44,10 @@ namespace API
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+           {
+               endpoints.MapControllers();
+               endpoints.MapFallbackToController("index", "Fallback");
+           });
         }
     }
 }
