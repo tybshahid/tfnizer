@@ -6,6 +6,7 @@ import {
   Container,
   Form,
   Grid,
+  Label,
   Message,
   Segment,
 } from "semantic-ui-react";
@@ -32,7 +33,7 @@ function App() {
 
   function handleSubmit() {
     setSubmitting(true);
-    setMessage("Submitting...");
+    setMessage(`Processing [${tfn}]`);
     axios
       .post<AxiosResponse>(`/tfn/${tfn}`)
       .then(sleep(1000))
@@ -62,7 +63,10 @@ function App() {
       <Container style={{ marginTop: "5em" }}>
         <Grid textAlign="center">
           <Grid.Column computer={6} mobile={16}>
-            <Segment clearing textAlign="left">
+            <Segment clearing textAlign="left" raised>
+              <Label as="a" color="blue" ribbon="right">
+                TFN validation tool
+              </Label>
               <Form
                 onSubmit={handleSubmit}
                 success={validationResult}
