@@ -1,0 +1,7 @@
+cd client-app
+npm run build
+cd..
+dotnet publish -c Release -o publish --self-contained false tfnizer.sln
+
+-- Web Config (Kestrel)
+hostingModel="outofprocess" />
