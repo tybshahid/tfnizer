@@ -2,7 +2,7 @@
 
 This Application is a Web Based TFN Validation Tool.
 
-It's hosted as a Live Demo here: [Tfnizer](https://tfnizer.eleagues.net/)
+It's hosted as a Live Demo here: [Tfnizer](https://tfnizer.eleagues.online/)
 
 ### Backend:
 - .NET Core (net5.0).
